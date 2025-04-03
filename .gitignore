@@ -1,1 +1,5 @@
 node_modules/
+# TypeScript
+*.tsbuildinfo           # Ignore TypeScript build info files
+
+/dist/
