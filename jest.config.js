@@ -2,12 +2,13 @@
 
 module.exports = {
     preset: 'ts-jest',
-    testEnvironment: 'node',
+    testEnvironment: 'jest-fixed-jsdom',
     roots: ['<rootDir>/src'],
     transform: {
-        '^.+\\.ts$': 'ts-jest',
+        '^.+\\.(ts|tsx)$': 'ts-jest',
     },
-    moduleFileExtensions: ['ts', 'js', 'json'],
-    testMatch: ['**/__tests__/**/*.test.ts','**/*.spec.ts'],
+    moduleFileExtensions: ['ts', 'js', 'json','tsx'],
+    testMatch: ['**/__tests__/**/*.test.ts','**/__tests__/**/*.test.tsx','**/*.spec.ts','**/*.spec.tsx'],
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     clearMocks: true,
 }
