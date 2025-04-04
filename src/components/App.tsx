@@ -8,11 +8,51 @@ import Settings from '../pages/Settings';
 import MiniContextProvider from '../context/MiniContext';
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#007BFF',
+    },
+    secondary: {
+      main: '#6C7F7D',
+    },
+    background: {
+      default: '#F8F9FA',
+      paper: '#FFFFFF',
+    },
+    success: {
+      main: '#28A745',
+    },
+    warning: {
+      main: '#FFC107',
+    },
+    error: {
+      main: '#3DC3545',
+    },
+  
+  },
+  typography: {
+    fontFamily: 'Roboto',
+    h1: {
+      fontWeight: '700',
+      fontFamily: 'Roboto Slab',
+    },
+    h2: {
+      fontWeight: '600',
+    },
+    h3: {
+      fontWeight: '500',
+    },
+    button: {
+      fontWeight: '500',
+    },
+  },
+
   components: {
     MuiLink: {
       styleOverrides: {
         root: {
           textDecoration: 'none',
+          color: '#212529'
         },
       },
     },

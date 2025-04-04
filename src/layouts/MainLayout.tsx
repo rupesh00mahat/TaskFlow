@@ -3,6 +3,7 @@ import {
   AppBar,
   Box,
   Button,
+  Container,
   Drawer,
   IconButton,
   Link,
@@ -18,17 +19,17 @@ import { MiniContext } from '../context/MiniContext';
 
 const MainLayout: React.FC = () => {
   const [openDrawer, setDrawerOpen] = useState(false);
-  const { state,dispatch } = useContext(MiniContext);
+  const { state, dispatch } = useContext(MiniContext);
 
-  const {activeSidebar} = state;
+  const { activeSidebar } = state;
 
   return (
     <Box>
       <AppBar position="static">
         <Toolbar>
           <IconButton
-          role='button'
-          aria-label='toggle sidebar'
+            role="button"
+            aria-label="toggle sidebar"
             onClick={() => {
               setDrawerOpen(true);
             }}
@@ -37,12 +38,13 @@ const MainLayout: React.FC = () => {
           </IconButton>
         </Toolbar>
         <Drawer
-        data-testid="sidebar"
+          data-testid="sidebar"
           variant="persistent"
           open={openDrawer}
           onClose={() => {
             setDrawerOpen(false);
           }}
+          PaperProps={{ sx: { width: '30%' } }}
         >
           <Box>
             <IconButton
@@ -50,17 +52,32 @@ const MainLayout: React.FC = () => {
                 setDrawerOpen(false);
               }}
             >
-              <ChevronLeft />
+              <ChevronLeft fontSize='large' />
             </IconButton>
           </Box>
           <List>
             <ListItem>
-              <Link component={NavLink} to={'/'} sx={activeSidebar == 'dashboard' ? {bgcolor: 'gray'}: {}}>
+              <Link
+                component={NavLink}
+                to={'/'}
+                sx={
+                  activeSidebar == 'dashboard'
+                    ? { bgcolor: 'secondary.main', width: '100%', p: 2 }
+                    : { width: '100%', p: 2 }
+                }
+              >
                 <ListItemButton
                   onClick={() => {
                     dispatch({ type: 'CHANGE_ACTIVE_PAGE', payload: 'dashboard' });
                   }}
-                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2 }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 2,
+                    width: '100%',
+                    height: '100%',
+                  }}
                 >
                   <Dashboard />
                   <span>Dashboard</span>
@@ -68,7 +85,15 @@ const MainLayout: React.FC = () => {
               </Link>
             </ListItem>
             <ListItem>
-              <Link component={NavLink} to={'/project'} sx={activeSidebar == 'project' ? {bgcolor: 'gray'}: {}}>
+              <Link
+                component={NavLink}
+                to={'/project'}
+                sx={
+                  activeSidebar == 'project'
+                    ? { bgcolor: 'gray', width: '100%', p: 2 }
+                    : { width: '100%', p: 2 }
+                }
+              >
                 <ListItemButton
                   onClick={() => {
                     dispatch({ type: 'CHANGE_ACTIVE_PAGE', payload: 'project' });
@@ -78,6 +103,8 @@ const MainLayout: React.FC = () => {
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     gap: 2,
+                    width: '100%',
+                    height: '100%',
                   }}
                 >
                   <Assignment />
@@ -86,17 +113,26 @@ const MainLayout: React.FC = () => {
               </Link>
             </ListItem>
             <ListItem>
-              <Link component={NavLink} to={'/settings'} sx={activeSidebar == 'settings' ? {bgcolor: 'gray'}: {}}>
+              <Link
+                component={NavLink}
+                to={'/settings'}
+                sx={
+                  activeSidebar == 'settings'
+                    ? { bgcolor: 'gray', width: '100%', p: 2 }
+                    : { width: '100%', p: 2 }
+                }
+              >
                 <ListItemButton
-                onClick={()=>{
-                  dispatch({type: 'CHANGE_ACTIVE_PAGE', payload: 'settings'})
-
-                }}
+                  onClick={() => {
+                    dispatch({ type: 'CHANGE_ACTIVE_PAGE', payload: 'settings' });
+                  }}
                   sx={{
                     display: 'flex',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     gap: 2,
+                    width: '100%',
+                    height: '100%',
                   }}
                 >
                   <Settings />
@@ -107,7 +143,9 @@ const MainLayout: React.FC = () => {
           </List>
         </Drawer>
       </AppBar>
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
     </Box>
   );
 };
