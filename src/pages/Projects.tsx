@@ -1,4 +1,5 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import ProjectCard from "../components/ProjectCard";
 
 function createData(name:string, status: string, date: string) {
   return {name, status, date}
@@ -20,8 +21,8 @@ const Projects: React.FC = () => {
 
     return <>
       <Typography variant="h2" gutterBottom>Projects</Typography>
-      <Button>Add Project</Button>
-      <TableContainer component={Paper}>
+      <Button variant="contained">Add Project</Button>
+      <TableContainer component={Paper} sx={{mt:2}}>
         <Table sx={{minWidth: 650, m:2}} aria-label="simple-table">
           <TableHead>
               <TableRow>
@@ -41,6 +42,13 @@ const Projects: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Grid container gap={2} sx={{mt:2}}>
+      {rows.map(({name, status, date}, index)=> (
+        <Grid key={index} size={4}>
+          <ProjectCard title={name} description={status} createdAt={date}/>
+        </Grid>
+      ))}
+      </Grid>
     </>;
   };
   
