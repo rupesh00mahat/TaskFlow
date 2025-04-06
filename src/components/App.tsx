@@ -26,7 +26,7 @@ const theme = createTheme({
       main: '#FFC107',
     },
     error: {
-      main: '#3DC3545',
+      main: '#c33d3d',
     },
   
   },
@@ -52,7 +52,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textDecoration: 'none',
-          color: '#212529'
+          // color: '#212529'
         },
       },
     },
