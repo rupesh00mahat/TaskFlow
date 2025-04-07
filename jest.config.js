@@ -11,4 +11,10 @@ module.exports = {
     testMatch: ['**/__tests__/**/*.test.ts','**/__tests__/**/*.test.tsx','**/*.spec.ts','**/*.spec.tsx'],
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     clearMocks: true,
+    transformIgnorePatterns: [
+        "/node_modules/(?!uuid/)"
+    ],
+    moduleNameMapper: {
+        "uuid": require.resolve('uuid')
+    }
 }

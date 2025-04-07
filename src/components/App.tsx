@@ -6,6 +6,7 @@ import Projects from '../pages/Projects';
 import Dashboard from '../pages/Dashboard';
 import Settings from '../pages/Settings';
 import MiniContextProvider from '../context/MiniContext';
+import ProjectDetail from '../pages/ProjectDetail';
 
 const theme = createTheme({
   palette: {
@@ -72,6 +73,7 @@ const App: React.FC = () => {
                 <Route path="project" element={<Projects />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
+              <Route path='/projects/:projectId' element={<ProjectDetail/>}/>
             </Routes>
           </MiniContextProvider>
         </ThemeProvider>

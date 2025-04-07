@@ -11,25 +11,26 @@ import {
   Typography,
 } from '@mui/material';
 import ProjectCard from '../components/ProjectCard';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CreateProjectDialog from '../components/CreateProjectDialog';
 import { Add } from '@mui/icons-material';
 import { Project } from '../types/common';
+import { MiniContext } from '../context/MiniContext';
 
 function createData(name: string, status: string | undefined, date: string) {
   return { name, status, date };
 }
 
-
-const dummyData = [
-  { id: 0, title: 'Task 1', description: 'to-do', createdAt: '2024-04-05' },
-  { id: 1, title: 'Task 2', description: 'to-do', createdAt: '2024-04-05' },
-  { id: 2, title: 'Task 3', description: 'to-do', createdAt: '2024-04-05' },
-];
-
 const Projects: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState<Project[]>(dummyData);
+  const [data, setData] = useState<Project[]>([]);
+
+  const {state} = useContext(MiniContext);
+  const {projects} = state;
+
+useEffect(()=>{
+  setData(projects);
+},[projects])
 
   const handleClose = () => {
     setOpen(false);
@@ -73,9 +74,9 @@ const Projects: React.FC = () => {
         </Table>
       </TableContainer>
       <Grid container gap={2} sx={{ mt: 2 }}>
-        {rows.map(({ name, status, date }, index) => (
-          <Grid key={index} size={4}>
-            <ProjectCard title={name} description={status} createdAt={date} />
+        {data.map(({ title, status, createdAt, id, description }) => (
+          <Grid key={id} size={4}>
+            <ProjectCard id={id} title={title} status={status} description={description} createdAt={createdAt} />
           </Grid>
         ))}
       </Grid>

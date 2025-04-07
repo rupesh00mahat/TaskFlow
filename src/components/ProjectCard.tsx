@@ -1,13 +1,11 @@
-import { Card, Typography } from '@mui/material';
+import { Card, CardActions, Chip, Typography } from '@mui/material';
 import { spacing } from '../constants/theme';
+import { Link } from 'react-router-dom';
+import { Project } from '../types/common';
 
-type Props = {
-  title: string;
-  description?: string;
-  createdAt?: string;
-};
 
-const ProjectCard: React.FC<Props> = ({ title, description, createdAt }) => {
+
+const ProjectCard: React.FC<Project> = ({ title, description, createdAt, id, status }) => {
   return (
     <Card
     data-testid="project-card"
@@ -22,11 +20,16 @@ const ProjectCard: React.FC<Props> = ({ title, description, createdAt }) => {
         }
       }}
     >
+        <Chip label={status} color="primary"/>
+
       <Typography variant="h6">{title}</Typography>
       <Typography variant="body2">{description}</Typography>
       <Typography variant="caption" color="text.secondary">
         {createdAt}
       </Typography>
+      <CardActions>
+        <Link to={`/projects/${id}`}>View Detail</Link>
+      </CardActions>
     </Card>
   );
 };
