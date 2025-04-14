@@ -1,5 +1,5 @@
 import { createContext, Dispatch, ReactElement, useReducer } from 'react';
-import { Project, Task } from '../types/common';
+import { EditedTask, Project, Task } from '../types/common';
 const initialContext = { activeSidebar: 'dashboard', projects: [], tasks: [] };
 
 type StateType = {
@@ -11,7 +11,7 @@ type ActionType =
   | { type: 'CHANGE_ACTIVE_PAGE'; payload: string }
   | { type: 'ADD_PROJECT'; payload: Project }
   | { type: 'ADD_TASK'; payload: Task }
-  | { type: 'EDIT_TASK'; payload: number | string }
+  | { type: 'EDIT_TASK'; payload: EditedTask }
   | { type: 'DELETE_TASK'; payload: number | string };
 
 type MiniContextType = {
@@ -32,7 +32,11 @@ const miniContextReducer = (state: StateType, action: ActionType): StateType => 
   } else if (action.type == 'ADD_TASK') {
     return { ...state, tasks: [...state.tasks, action.payload] };
   } else if (action.type == 'EDIT_TASK') {
-    return state;
+    const {title, description, status, taskId} = action.payload;
+    const filteredTask = state.tasks.filter((task)=> task.id !== taskId);
+    const taskToModify = state.tasks.filter((task)=> task.id == taskId);
+    const newTask = {...taskToModify[0], title, description, status }
+    return {...state, tasks: [...filteredTask, newTask]}
   } else if (action.type == 'DELETE_TASK') {
     return state;
   } else {

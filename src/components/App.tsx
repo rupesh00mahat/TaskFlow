@@ -72,8 +72,9 @@ const App: React.FC = () => {
                 <Route index element={<Dashboard />} />
                 <Route path="project" element={<Projects />} />
                 <Route path="settings" element={<Settings />} />
+                <Route path='/projects/:projectId' element={<ProjectDetail/>}/>
+
               </Route>
-              <Route path='/projects/:projectId' element={<ProjectDetail/>}/>
             </Routes>
           </MiniContextProvider>
         </ThemeProvider>

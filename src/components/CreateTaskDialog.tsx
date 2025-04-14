@@ -38,6 +38,9 @@ const CreateTaskDialog: React.FC<Props> = ({ open, handleClose, projectId }) => 
 
   const addTask = () => {
     dispatch({type: 'ADD_TASK', payload: {projectId: projectId as string,id: v4(),title, description, dueDate:date.toString(), status} as Task})
+    setTitle('');
+    setDescription('');
+    setStatus('');
   }
 
   return (

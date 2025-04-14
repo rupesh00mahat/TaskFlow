@@ -2,8 +2,9 @@ import { Button, Container, Grid, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import TaskCard from '../components/TaskCard';
 import CreateTaskDialog from '../components/CreateTaskDialog';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { MiniContext } from '../context/MiniContext';
+import EmptyItems from '../components/EmptyItems';
 
 const ProjectDetail: React.FC = () => {
   const { projectId } = useParams();
@@ -14,10 +15,12 @@ const ProjectDetail: React.FC = () => {
     setOpen(false);
   };
 
-  const taskList = state && state.tasks.filter((task)=> task.projectId == projectId)
+  const taskList = state && useMemo(()=>{
+    return  state.tasks.filter((task) => task.projectId == projectId)
+  },[state.tasks])
 
   return (
-    <Container>
+    <Container sx={{mt:2}}>
       <Button
         onClick={() => {
           setOpen(true);
@@ -27,16 +30,18 @@ const ProjectDetail: React.FC = () => {
         Create Task
       </Button>
       <CreateTaskDialog projectId={projectId} open={open} handleClose={handleClose} />
-      <Typography sx={{ mt: 2 }} variant="h3">
-        Task List
-      </Typography>
-      <Grid container gap={2} sx={{ mt: 2 }}>
-        {taskList.map(({ title, id, status, description, dueDate }) => (
-          <Grid key={id} size={3}>
-            <TaskCard  title={title} status={status} description={description} dueDate={dueDate} />
-          </Grid>
-        ))}
-      </Grid>
+      {taskList.length == 0 ?
+        <EmptyItems placeholder='Task' />
+        : <><Typography sx={{ mt: 2 }} variant="h3">
+          Task List
+        </Typography>
+          <Grid container gap={2} sx={{ mt: 2 }}>
+            {taskList.map(({ title, id, status, description, dueDate }) => (
+              <Grid key={id} size={3}>
+                <TaskCard id={id} title={title} status={status} description={description} dueDate={dueDate} />
+              </Grid>
+            ))}
+          </Grid></>}
     </Container>
   );
 };

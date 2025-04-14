@@ -16,6 +16,7 @@ import CreateProjectDialog from '../components/CreateProjectDialog';
 import { Add } from '@mui/icons-material';
 import { Project } from '../types/common';
 import { MiniContext } from '../context/MiniContext';
+import EmptyItems from '../components/EmptyItems';
 
 function createData(name: string, status: string | undefined, date: string) {
   return { name, status, date };
@@ -53,6 +54,9 @@ useEffect(()=>{
         <Typography>Create A Project</Typography>
       </Button>
       <CreateProjectDialog open={open} handleClose={handleClose} setData={setData} />
+     {data.length == 0 ? <>
+     <EmptyItems placeholder='Projects'/>
+     </> : <>
       <TableContainer component={Paper} sx={{ mt: 2 }}>
         <Table sx={{ minWidth: 650, m: 2 }} aria-label="simple-table">
           <TableHead>
@@ -80,6 +84,7 @@ useEffect(()=>{
           </Grid>
         ))}
       </Grid>
+     </>}
     </>
   );
 };

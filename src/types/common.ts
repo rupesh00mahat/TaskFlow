@@ -21,3 +21,10 @@ export interface Task{
   status:  'todo' | 'in-progress' |  'done';  // Date when the project was created (in ISO string format)
   projectId?: string;
 }
+
+export interface EditedTask{
+  title: string,
+  description: string,
+  status: 'todo' | 'in-progress' | 'done';
+  taskId: string | number,
+}
